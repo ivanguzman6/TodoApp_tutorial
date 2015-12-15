@@ -1,54 +1,5 @@
 // Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
-
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
-
-todoApp.config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-        .state('config', {
-            url: '/config',
-            templateUrl: 'templates/config.html',
-            controller: 'ConfigController'
-        })
-        .state('categories', {
-            url: '/categories',
-            templateUrl: 'templates/categories.html',
-            controller: 'CategoriesController'
-        })
-        .state('lists', {
-            url: '/lists/:categoryId',
-            templateUrl: 'templates/lists.html',
-            controller: 'ListsController'
-        })
-        .state('items', {
-            url: "/items/:listId",
-            templateUrl: "templates/items.html",
-            controller: "ItemsController"
-        });
-    $urlRouterProvider.otherwise('/config');
-});
-
-
+var todoApp = angular.module('starter', ['ionic', 'ngCordova']);
 
 var db = null;
  
@@ -58,7 +9,7 @@ todoApp.controller("ConfigController", function($scope, $ionicPlatform, $ionicLo
         disableBack: true
     });
     $ionicPlatform.ready(function() {
-        $ionicLoading.show({ template: 'Loading...' });
+        $ionicLoading.show({ template: 'Cargando...' });
         if(window.cordova) {
             window.plugins.sqlDB.copy("populated.db", function() {
                 db = $cordovaSQLite.openDB("populated.db");
@@ -86,6 +37,56 @@ todoApp.controller("ConfigController", function($scope, $ionicPlatform, $ionicLo
         }
     });
 });
+
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+//angular.module('starter', ['ionic'])
+/*
+todoApp.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    if(window.cordova && window.cordova.plugins.Keyboard) {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+      // Don't remove this line unless you know what you are doing. It stops the viewport
+      // from snapping when text inputs are focused. Ionic handles this internally for
+      // a much nicer keyboard experience.
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
+  });
+})
+*/
+todoApp.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+        .state('config', {
+            url: '/config',
+            templateUrl: 'templates/config.html',
+            controller: 'ConfigController'
+        })
+        .state('categories', {
+            url: '/categories',
+            templateUrl: 'templates/categories.html',
+            controller: 'CategoriesController'
+        })
+        .state('lists', {
+            url: '/lists/:categoryId',
+            templateUrl: 'templates/lists.html',
+            controller: 'ListsController'
+        })
+        .state('items', {
+            url: "/items/:listId",
+            templateUrl: "templates/items.html",
+            controller: "ItemsController"
+        });
+    $urlRouterProvider.otherwise('/config');
+});
+
  
 todoApp.controller("CategoriesController", function($scope, $ionicPlatform, $cordovaSQLite) {
  
