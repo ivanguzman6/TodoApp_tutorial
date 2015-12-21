@@ -10,8 +10,16 @@ todoApp.controller("ConfigController", function($scope, $ionicPlatform, $ionicLo
     });
     $ionicPlatform.ready(function() {
         $ionicLoading.show({ template: 'Cargando...' });
+		if(window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+        }
+        if(window.StatusBar){
+            StatusBar.styleDefault();
+        }
         if(window.cordova) {
+		 console.log("1");
             window.plugins.sqlDB.copy("populated.db", function() {
+				console.log("2");
                 db = $cordovaSQLite.openDB("populated.db");
                 $location.path("/categories");
                 $ionicLoading.hide();
