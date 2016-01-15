@@ -16,7 +16,7 @@ todoApp.controller("ConfigController", function($scope, $ionicPlatform, $ionicLo
         if(window.StatusBar){
             StatusBar.styleDefault();
         }
-        if(window.cordova) {
+       /* if(window.cordova) {
 		 console.log("1");
             window.plugins.sqlDB.copy("populated.db", function() {
 				console.log("2");
@@ -29,8 +29,8 @@ todoApp.controller("ConfigController", function($scope, $ionicPlatform, $ionicLo
                 $location.path("/categories");
                 $ionicLoading.hide();
             });
-        } else {
-            db = openDatabase("websql.db", '1.0', "My WebSQL Database", 2 * 1024 * 1024);
+        } else {*/
+            db = openDatabase("populated.db", '1.0', "populated", 2 * 1024 * 1024);
             db.transaction(function (tx) {
                 tx.executeSql("DROP TABLE IF EXISTS tblCategories");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS tblCategories (id integer primary key, category_name text)");
@@ -39,10 +39,10 @@ todoApp.controller("ConfigController", function($scope, $ionicPlatform, $ionicLo
                 tx.executeSql("INSERT INTO tblCategories (category_name) VALUES (?)", ["Shopping"]);
                 tx.executeSql("INSERT INTO tblCategories (category_name) VALUES (?)", ["Chores"]);
                 tx.executeSql("INSERT INTO tblCategories (category_name) VALUES (?)", ["School"]);
-            });
+           /* });*/
             $location.path("/categories");
             $ionicLoading.hide();
-        }
+        });
     });
 });
 
